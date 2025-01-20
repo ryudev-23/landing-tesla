@@ -2,24 +2,42 @@
 import LandingHeader from "../components/LandingHeader.astro";
 import Layout from "../layouts/Layout.astro";
 import HeroSection from "../components/HeroSection.astro";
-import ChargeSection from "../components/ChargeSection.astro";
-import Section from "../components/Section.astro";
+import YSection from "../components/YSection.astro";
+import XSection from "../components/XSection.astro";
+import PowerwallSection from "../components/PowerwallSection.astro";
+import TeslaSection from "../components/TeslaSection.astro";
+import SSection from "../components/SSection.astro";
+import M3Section from "../components/M3Section.astro";
+import CargaSection from "../components/CargaSection.astro";
+
 ---
 
 <Layout title="Tesla - El coche de tus sueños (y de Elon Musk)">
     <LandingHeader />
-  <main class="snap-y snap-mandatory relative w-full h-screen overflow-auto scroll-smooth">
+    <main class="snap-y snap-mandatory relative w-full h-screen overflow-auto scroll-smooth">
 	<div class="snap-center"> 
 		<HeroSection />
 	</div>
-	<div class="snap-center"> 
-		<ChargeSection />
+	<div id="modelos" class="snap-center"> 
+		<SSection />
 	</div>
-	<div class="snap-center"> 
-		<HeroSection />
+	<div id="modelo3" class="snap-center"> 
+		<M3Section />
 	</div>
-	<div class="snap-center"> 
-		<HeroSection />
+	<div id="modelox" class="snap-center"> 
+		<XSection />
+	</div>
+	<div id="modeloy" class="snap-center"> 
+		<YSection />
+	</div>
+	<div id="powerwall" class="snap-center"> 
+		<PowerwallSection />
+	</div>
+	<div id="carga" class="snap-center"> 
+		<CargaSection />
+	</div>
+	<div class="snap-center">
+		<TeslaSection />
 	</div>
   </main>
 </Layout>

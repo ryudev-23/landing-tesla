@@ -3,49 +3,98 @@ import Logo from './Logo.astro'
 import HelpIcon from './icons/Help.astro'
 import WorldIcon from './icons/World.astro'
 import ProfileIcon from './icons/Profile.astro'
+import MenuIcon from './icons/Menu.astro'
 ---
+
 <header 
     id="landing-header"
-	class="pt-0 pb-8 px-10 flex items-center fixed top-0 w-full justify-between z-40 text-white"
-	>
-		<div class="flex flex-grow">
-			<Logo />
-		</div>
-		<nav>
-			<ul class="flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:text-current [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2">
-				<li><a href="#">Vehiculos</a></li>
-				<li><a href="#">Energia</a></li>
-				<li><a href="#">Carga</a></li>
-				<li><a href="#">Descubrir</a></li>
-			</ul>
-		</nav>
-		<nav class="flex flex-grow justify-end basis-0">
-			<ul class="flex [&>li>a]:inline-block [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:px-4 [&>li>a]:py-2">
-				<li><a href="#">
-					<HelpIcon class="size-7" />
-				</a></li>
-				<li><a href="#">
-					<WorldIcon class="size-7" />
-				</a></li>
-				<li><a href="#">
-					<ProfileIcon class="size-7" />
-				</a></li>
-			</ul>
-		</nav>
-		<div
-			id="menu-backdrop"
-			class={`
-			absolute bg-black/5 backdrop-blur-lg rounded
-			translate-x-[var(--left)] translate-y-[var(--top)]
-			left-0 top-0
-			w-[var(--width)] h-[var(--height)]
-			transition-all duration-500
-			ease-in-out opacity-0 -z-10
-			`}
-		/>
+    class="pt-0 pb-8 px-10 flex items-center fixed top-0 w-full justify-between z-40 text-white"
+    >
+        <div class="flex flex-grow">
+            <Logo />
+        </div>
+        <nav class="hidden md:flex">
+            <ul class="flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:text-current [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2">
+                <li><a href="#modelos">Modelo S</a></li>
+                <li><a href="#modelo3">Modelo 3</a></li>
+                <li><a href="#modelox">Modelo X</a></li>
+                <li><a href="#modeloy">Modelo Y</a></li>
+                <li><a href="#powerwall">Powerwall</a></li>
+                <li><a href="#carga">Carga</a></li>
+            </ul>
+        </nav>
+        <nav class="hidden md:flex flex-grow justify-end basis-0">
+            <ul class="flex [&>li>a]:inline-block [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:px-4 [&>li>a]:py-2">
+                <li><a href="#">
+                    <HelpIcon class="size-7" />
+                </a></li>
+                <li><a href="#">
+                    <WorldIcon class="size-7" />
+                </a></li>
+                <li><a href="#">
+                    <ProfileIcon class="size-7" />
+                </a></li>
+            </ul>
+        </nav>
+        <div class="md:hidden">
+            <button id="menu-button">
+                <MenuIcon class="size-7" />
+            </button>
+        </div>
     </header>
 
-	<script>
+	
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 z-50">
+        <div class="flex flex-col items-center justify-center h-full">
+            <ul class="text-white text-lg">
+                <li class="py-2 text-center"><a href="#modelos">Modelo S</a></li>
+                <li class="py-2 text-center"><a href="#modelo3">Modelo 3</a></li>
+                <li class="py-2 text-center"><a href="#modelox">Modelo X</a></li>
+                <li class="py-2 text-center"><a href="#modeloy">Modelo Y</a></li>
+                <li class="py-2 text-center"><a href="#powerwall">Powerwall</a></li>
+                <li class="py-2 text-center"><a href="#carga">Carga</a></li>
+				<li class="py-2 flex justify-center"><a href="#"><HelpIcon class="size-7 items-center" /></a></li>
+                <li class="py-2 flex justify-center"><a href="#"><WorldIcon class="size-7 items-center" /></a></li>
+                <li class="py-2 flex justify-center"><a href="#"><ProfileIcon class="size-7 items-center justify-center" /></a></li>
+            </ul>
+            <button id="close-menu" class="mt-4 text-white text-center">Cerrar</button>
+        </div>
+    </div>
+
+    <script> // Menú móvil
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuButton = document.getElementById('close-menu');
+
+        if (menuButton && mobileMenu && closeMenuButton) {
+            menuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            closeMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+
+            document.addEventListener('click', (event) => {
+                const target = event.target as Node;
+                if (!mobileMenu.contains(target) && !menuButton.contains(target)) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            const menuItems = mobileMenu.querySelectorAll('a');
+            menuItems.forEach((item) => {
+                item.classList.add('hover:bg-gray-700', 'hover:text-white', 'transition-colors', 'duration-300', 'px-4', 'py-2', 'rounded');
+                item.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        } else {
+            console.error('Uno o más elementos del menú móvil no se encontraron en el DOM.');
+        }
+    </script>
+
+	<script>// Efecto de fondo en el menú
 		const listItem = document.querySelectorAll('#landing-header li')
 		const menuBackdrop = document.querySelector('#menu-backdrop') as HTMLElement
 
@@ -73,7 +122,8 @@ import ProfileIcon from './icons/Profile.astro'
 		})
 	</script>
 
-    <script>
+	
+    <script> // Cambiar color del header al hacer scroll
         const $header = document.querySelector('#landing-header') as HTMLElement | null;
 		if ($header) {
 			const observerOptions = {
